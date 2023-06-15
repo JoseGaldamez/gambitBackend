@@ -64,7 +64,7 @@ func validateAuthorization(path string, method string, headers map[string]string
 		return false, 401, "Token not found"
 	}
 
-	isOk, err, message := auth.ValidateToken(token)
+	isOk, message, err := auth.ValidateToken(token)
 	if !isOk {
 
 		if err != nil {
