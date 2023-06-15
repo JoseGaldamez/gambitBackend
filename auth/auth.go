@@ -28,7 +28,7 @@ func ValidateToken(token string) (bool, string, error) {
 	}
 
 	fmt.Println(parts)
-	fmt.Println(parts[1])
+	fmt.Println("Part to decode: " + parts[1])
 
 	userInfo, err := base64.StdEncoding.DecodeString(parts[1])
 	if err != nil {
@@ -54,3 +54,5 @@ func ValidateToken(token string) (bool, string, error) {
 	return true, string(tkj.Username), nil
 
 }
+
+// .eyJzdWIiOiIzN2YwNzkyNS0zNmIyLTRkOTYtOGMzMi04MDFmYTk4MGJhZjIiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAudXMtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3VzLWVhc3QtMV9CSVloU2NBbFgiLCJ2ZXJzaW9uIjoyLCJjbGllbnRfaWQiOiIzOWFibWxmNmplcWZvZWR0ZHI2NDVudWF0IiwiZXZlbnRfaWQiOiJkMGNhNDRjZC05OWNkLTRhNjQtYmEyNy1lZGYzZDk0MWRkMDUiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIG9wZW5pZCBlbWFpbCIsImF1dGhfdGltZSI6MTY4Njg2MTUyNiwiZXhwIjoxNjg2OTQ3OTI2LCJpYXQiOjE2ODY4NjE1MjYsImp0aSI6IjJlODA5NTg1LWQyOGEtNDA1OS1iZDI1LTU5NDc3Y2UzZDc1NiIsInVzZXJuYW1lIjoiMzdmMDc5MjUtMzZiMi00ZDk2LThjMzItODAxZmE5ODBiYWYyIn0.
