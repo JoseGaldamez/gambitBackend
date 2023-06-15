@@ -2,6 +2,7 @@ package routers
 
 import (
 	"encoding/json"
+	"fmt"
 	"strconv"
 
 	"github.com/JoseGaldamez/gambitBackend/db"
@@ -25,9 +26,17 @@ func InsertCategory(body string, user string) (int, string) {
 		return 400, "Category Path is empty"
 	}
 
-	isAdmin, msg := db.UserIsAdmin(user)
-	if !isAdmin {
-		return 400, msg
+	var userIsAdmin bool
+	var message string
+
+	userIsAdmin, message = db.UserIsAdmin(user)
+
+	fmt.Println("UserIsAdmin: OK")
+	fmt.Println("Message: " + message)
+	fmt.Println(userIsAdmin)
+
+	if !userIsAdmin {
+		return 400, message
 	}
 
 	result, errInsert := db.InsertCategory(category)

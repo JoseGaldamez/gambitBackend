@@ -50,7 +50,6 @@ func ConnStr(keys models.SecretRDSJson) string {
 }
 
 func UserIsAdmin(userUUID string) (bool, string) {
-	defer Db.Close()
 
 	fmt.Println("UserIsAdmin begin")
 
@@ -58,6 +57,13 @@ func UserIsAdmin(userUUID string) (bool, string) {
 	if err != nil {
 		return false, "Error connecting to database: " + err.Error()
 	}
+
+	defer (func() {
+		err := Db.Close()
+		if err != nil {
+			fmt.Println("Error closing database: " + err.Error())
+		}
+	})()
 
 	sentence := "SELECT 1 FROM users WHERE User_UUID = '" + userUUID + "' and User_Status = 1;"
 	fmt.Println("Sending sentence to DB: " + sentence)
@@ -83,5 +89,6 @@ func UserIsAdmin(userUUID string) (bool, string) {
 		return false, "User is not admin"
 	}
 
+	fmt.Println("UserIsAdmin is true")
 	return true, "User is admin"
 }
