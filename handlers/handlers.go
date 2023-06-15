@@ -29,7 +29,7 @@ func Handlers(
 		return code, user
 	}
 
-	switch path[0:4] {
+	switch path[0:5] {
 	case "user":
 		return handleUsers(body, path, method, user, id, request)
 	case "prod":
@@ -38,7 +38,7 @@ func Handlers(
 		return handleStocks(body, path, method, user, idn, request)
 	case "addr":
 		return handleAddresses(body, path, method, user, idn, request)
-	case "cate":
+	case "/cate":
 		return handleCategories(body, path, method, user, idn, request)
 	case "orde":
 		return handleOrdens(body, path, method, user, idn, request)
