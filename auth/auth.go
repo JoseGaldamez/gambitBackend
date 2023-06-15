@@ -31,13 +31,19 @@ func ValidateToken(token string) (bool, string, error) {
 	fmt.Println("Part to decode: " + parts[1])
 
 	userInfo, err := base64.StdEncoding.DecodeString(parts[1] + "/fg==")
+
 	if err != nil {
 		fmt.Println("Error decoding token", err.Error())
 		return false, "Decoding error", err
 	}
 
+	userInfoString := string(userInfo)
+	fmt.Println("Decoded token: " + userInfoString)
+
+	userInfoDecoded := strings.Split(userInfoString, "?")[0]
+
 	var tkj TokenJson
-	err = json.Unmarshal(userInfo, &tkj)
+	err = json.Unmarshal([]byte(userInfoDecoded), &tkj)
 	if err != nil {
 		fmt.Println("Error unmarshalling token", err.Error())
 		return false, "Unmarshalling error", err
