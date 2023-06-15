@@ -5,6 +5,7 @@ import (
 	"strconv"
 
 	"github.com/JoseGaldamez/gambitBackend/auth"
+	"github.com/JoseGaldamez/gambitBackend/routers"
 	"github.com/aws/aws-lambda-go/events"
 )
 
@@ -84,7 +85,10 @@ func handleProducts(body string, path string, method string, user string, id int
 }
 
 func handleCategories(body string, path string, method string, user string, id int, request events.APIGatewayV2HTTPRequest) (int, string) {
-
+	switch method {
+	case "POST":
+		return routers.InsertCategory(body, user)
+	}
 	return 400, "Method not found - handleCategories"
 }
 

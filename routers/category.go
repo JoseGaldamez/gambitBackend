@@ -35,5 +35,5 @@ func InsertCategory(body string, user string) (int, string) {
 		return 400, "Something went wrong inserting: " + body + errInsert.Error()
 	}
 
-	return 200, "{CategoryID: " + strconv.Itoa(result) + "}"
+	return 200, "{CategoryID: " + strconv.Itoa(int(result)) + "}"
 }
