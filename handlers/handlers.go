@@ -94,6 +94,8 @@ func handleCategories(body string, path string, method string, user string, id i
 	switch method {
 	case "POST":
 		return routers.InsertCategory(body, user)
+	case "PUT":
+		return routers.UpdateCategory(body, user, id)
 	}
 	return 400, "Method not found - handleCategories"
 }

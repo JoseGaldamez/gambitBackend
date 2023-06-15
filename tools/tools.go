@@ -3,6 +3,7 @@ package tools
 import (
 	"fmt"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -17,20 +18,17 @@ func ValidateEnvironment() bool {
 		return ok
 	}
 
-	// _, ok = os.LookupEnv("UserPoolId")
-	// if !ok {
-	// 	return ok
-	// }
-
-	// _, ok = os.LookupEnv("Region")
-	// if !ok {
-	// 	return ok
-	// }
-
 	_, ok = os.LookupEnv("UrlPrefix")
 	if !ok {
 		return ok
 	}
 
 	return ok
+}
+
+func StringScape(value string) string {
+	desc := strings.ReplaceAll(value, "'", "")
+	desc = strings.ReplaceAll(desc, "\"", "")
+
+	return desc
 }
