@@ -59,7 +59,7 @@ func UserIsAdmin(userUUID string) (bool, string) {
 		return false, "Error connecting to database: " + err.Error()
 	}
 
-	sentence := "SELECT 1 FROM users WHERE User_UUID = '" + userUUID + "' and User_Status = 0;"
+	sentence := "SELECT 1 FROM users WHERE User_UUID = '" + userUUID + "' and User_Status = 1;"
 	fmt.Println("Sending sentence to DB: " + sentence)
 
 	rows, err := Db.Query(sentence)
@@ -67,8 +67,11 @@ func UserIsAdmin(userUUID string) (bool, string) {
 		return false, "Error querying database: " + err.Error()
 	}
 
+	if !rows.Next() {
+		return false, "User not found"
+	}
+
 	var value string
-	rows.Next()
 	err = rows.Scan(&value)
 	fmt.Println("UserIsAdmin end > " + value)
 
