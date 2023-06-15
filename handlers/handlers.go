@@ -49,6 +49,12 @@ func Handlers(
 }
 
 func validateAuthorization(path string, method string, headers map[string]string) (bool, int, string) {
+
+	fmt.Println("Validating authorization")
+	fmt.Println("Path: " + path)
+	fmt.Println("Method: " + method)
+	fmt.Println(headers)
+
 	if (path == "product" && method == "GET") || (path == "category" && method == "GET") {
 		return true, 200, ""
 	}
