@@ -83,3 +83,31 @@ func UpdateCategory(body string, user string, id int) (int, string) {
 
 	return 200, "{ updated: true }"
 }
+
+func DeleteCategory(body string, user string, id int) (int, string) {
+
+	if id == 0 {
+		return 400, "Category ID is empty"
+	}
+
+	var userIsAdmin bool
+	var message string
+
+	userIsAdmin, message = db.UserIsAdmin(user)
+
+	fmt.Println("UserIsAdmin: OK")
+	fmt.Println("Message: " + message)
+	fmt.Println(userIsAdmin)
+
+	if !userIsAdmin {
+		return 400, message
+	}
+
+	err := db.DeleteCategory(id)
+
+	if err != nil {
+		return 400, "Something went wrong deleting: " + err.Error()
+	}
+
+	return 400, "{ deleted: true, id: " + strconv.Itoa(id) + ", message: 'Category deleted' }"
+}
