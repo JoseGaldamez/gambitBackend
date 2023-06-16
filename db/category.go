@@ -112,3 +112,38 @@ func DeleteCategory(id int) error {
 	return nil
 
 }
+
+func GetCategories() ([]models.Category, error) {
+	fmt.Println("Begin in GetCategories")
+
+	err := DbConnect()
+	if err != nil {
+		return nil, err
+	}
+	defer Db.Close()
+
+	sentence := "SELECT Categ_ID, Categ_Name, Categ_Path FROM category"
+	fmt.Println(sentence)
+
+	rows, err := Db.Query(sentence)
+	if err != nil {
+		fmt.Println("Error: " + err.Error())
+		return nil, err
+	}
+
+	var categories []models.Category
+
+	for rows.Next() {
+		var category models.Category
+		err = rows.Scan(&category.CategoryID, &category.CategoryName, &category.CategoryPath)
+		if err != nil {
+			fmt.Println("Error: " + err.Error())
+			return nil, err
+		}
+		categories = append(categories, category)
+	}
+
+	fmt.Println("End in GetCategories - Successfully")
+
+	return categories, nil
+}

@@ -111,3 +111,14 @@ func DeleteCategory(body string, user string, id int) (int, string) {
 
 	return 400, "{ deleted: true, id: " + strconv.Itoa(id) + ", message: 'Category deleted' }"
 }
+
+func ListCategories(body string, user string, id int) (int, string) {
+
+	result, err := db.GetCategories()
+	if err != nil {
+		return 400, "Something went wrong getting categories: " + err.Error()
+	}
+	fmt.Println(result)
+
+	return 400, "{ categories: " + fmt.Sprint(result) + " }"
+}
